@@ -51,7 +51,7 @@ export class IdeaService {
   };
  
   updateIdea(idea: Idea): Promise<void> {
-    return this.ideaCollection.doc(idea.id).update({ name: idea.name, notes: idea.notes, type: idea.type, img: idea.img });
+    return this.ideaCollection.doc(idea.id).update({ name: idea.name, type: idea.type, img: idea.img, lat: idea.lat, lng: idea.lng });
   };
  
   deleteIdea(id: string): Promise<void> {

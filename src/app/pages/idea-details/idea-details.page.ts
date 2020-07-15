@@ -53,6 +53,7 @@ export class IdeaDetailsPage implements OnInit {
     this.ideaService.addIdea(this.idea).then(() => {
       this.router.navigateByUrl('/idea');
       this.showToast('Idea added');
+      this.router.navigate(['./list']);
     }, err => {
       this.showToast('There was a problem adding your idea :(');
     });
@@ -62,17 +63,18 @@ export class IdeaDetailsPage implements OnInit {
     this.ideaService.deleteIdea(this.idea.id).then(() => {
       this.router.navigateByUrl('/idea');
       this.showToast('Idea deleted');
+      this.router.navigate(['./list']);
     }, err => {
       this.showToast('There was a problem deleting your idea :(');
     });
   };
  
   updateIdea() {
-    alert(this.latitude)
     this.idea.lat = this.latitude
     this.idea.lng = this.longitude
     this.ideaService.updateIdea(this.idea).then(() => {
       this.showToast('Idea updated');
+      this.router.navigate(['./list']);
     }, err => {
       this.showToast('There was a problem updating your idea :(');
     });

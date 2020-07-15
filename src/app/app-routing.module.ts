@@ -4,10 +4,10 @@ import { AuthService } from './auth.service'
 
 
 const routes: Routes = [
-  { path: '', loadChildren: './pages/idea-list/idea-list.module#IdeaListPageModule' },
+  { path: 'list', loadChildren: './pages/idea-list/idea-list.module#IdeaListPageModule' },
   // { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   {
-    path: 'login',
+    path: '',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {

@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
             username,
             uid: res.user.uid
           })
-          this.router.navigate(['./tabs/uploader'])
+          this.router.navigate(['./list'])
         }
         
         this.showAlert("Success", "Login successful")
