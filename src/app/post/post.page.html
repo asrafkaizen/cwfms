@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Issue detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-card *ngIf="post as postData">
+		<ion-img src="https://ucarecdn.com/{{ postID }}/"></ion-img>
+		<ion-card-content>
+			
+			<ion-input [(ngModel)]="post.desc"></ion-input>
+			<p>Type: piping</p>
+			<p>Description: Leaked piping near the playground</p>
+			<p>latitude: 3.46339289</p>
+			<p>longitude: 102.3757036</p>
+			<!-- <p>{{ post.desc }}</p>
+			<p>{{ postData.desc }}</p>
+			<p>{{ postData.latitude }}</p>
+			<p>{{ postData.longitude }}</p>
+			<p>{{ postID }}</p> -->
+		</ion-card-content>
+		
+	</ion-card>
+
+		<!-- <ion-item>
+			<ion-label position="stacked">Name</ion-label>
+			<ion-input [(ngModel)]="post.id"></ion-input>
+		  </ion-item>
+		 
+		  <ion-item>
+			<ion-label position="stacked">desc</ion-label>
+			<ion-textarea [(ngModel)]="post.desc" rows="8"></ion-textarea>
+		  </ion-item>
+
+		  <ion-item>
+			<ion-label position="stacked">type</ion-label>
+			<ion-textarea [(ngModel)]="postData.type" rows="8"></ion-textarea>
+		  </ion-item>
+
+		  <ion-item>
+			<ion-label position="stacked">type</ion-label>
+			<ion-textarea [(ngModel)]="postID.type" rows="8"></ion-textarea>
+		  </ion-item>
+		 
+		<ion-footer *ngIf="!post.id">
+		  <ion-toolbar color="success">
+			<ion-button expand="full" fill="clear" color="light" (click)="addIdea()">
+			  <ion-icon name="checkmark" slot="start"></ion-icon>
+			  Add Idea
+			</ion-button>
+		  </ion-toolbar>
+		</ion-footer>
+		 
+		<ion-footer *ngIf="post.id">
+		  <ion-row no-padding text-center>
+			<ion-col size="6">
+			  <ion-button expand="block" fill="outline" color="danger" (click)="deleteIdea()">
+				<ion-icon name="trash" slot="start"></ion-icon>
+				Delete
+			  </ion-button>
+			</ion-col>
+			<ion-col size="6">
+			  <ion-button expand="block" fill="solid" color="success" (click)="updateIdea()">
+				<ion-icon name="save" slot="start"></ion-icon>
+				Update
+			  </ion-button>
+			</ion-col>
+		  </ion-row> -->

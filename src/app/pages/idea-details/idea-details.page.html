@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Issue Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding>
+  <div class="center" *ngIf="idea.img">
+  <ion-img src="https://ucarecdn.com/{{ idea.img }}/"></ion-img>
+  </div>
+
+  <app-loading *ngIf="busy"></app-loading>
+
+  <div class="center" *ngIf="!idea.img">
+    <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)" class="filebtn" #filebutton/>
+    <ion-button shape="round" color="primary" (click)="uploadFile()" *ngIf="!imageURL" fill="outline">Upload Issue Image</ion-button>
+    <ion-card *ngIf="imageURL">
+      <img src="https://ucarecdn.com/{{ imageURL }}/" />
+    </ion-card> 
+  </div>
+
+
+  <ion-item>
+    <ion-label position="stacked">Description</ion-label>
+    <ion-input [(ngModel)]="idea.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Issue type</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="idea.type">
+      <ion-select-option value="e">Electrical</ion-select-option>
+      <ion-select-option value="r">Roadwork</ion-select-option>
+      <ion-select-option value="p">Piping</ion-select-option>
+      <ion-select-option value="l">Landscape</ion-select-option>
+      <ion-select-option value="b">Building</ion-select-option>
+    </ion-select>
+  </ion-item>
+ <div class="center">
+  <ion-button (click)="getLoc()">Get Location</ion-button>
+ </div>
+ <ion-textarea placeholder="{{ idea.lat }}" value="{{lat}}" [(ngModel)]="latitude"></ion-textarea>
+  <ion-textarea placeholder="{{ idea.lng }}" value= "{{lng}}" [(ngModel)]="longitude"></ion-textarea>
+  
+</ion-content>
+ 
+<ion-footer *ngIf="!idea.id">
+  <ion-toolbar color="success">
+    <ion-button expand="full" fill="clear" color="light" (click)="addIdea()">
+      <ion-icon name="checkmark" slot="start"></ion-icon>
+      Add Idea
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+ 
+<ion-footer *ngIf="idea.id">
+  <ion-row no-padding text-center>
+    <ion-col size="6">
+      <ion-button expand="block" fill="outline" color="danger" (click)="deleteIdea()">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Delete
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button expand="block" fill="solid" color="success" (click)="updateIdea()">
+        <ion-icon name="save" slot="start"></ion-icon>
+        Update
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

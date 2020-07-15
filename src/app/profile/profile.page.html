@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Issues list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <app-loading *ngIf="busy"></app-loading>
+
+  <div id="images" *ngIf="!busy">
+    <div class="image" *ngFor="let post of (userPosts | async)?.posts">
+      <ion-card (click)="goTo(post.image)">
+        <ion-img src="https://ucarecdn.com/{{ post.image}}/-/scale_crop/200x200/center/"></ion-img>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>

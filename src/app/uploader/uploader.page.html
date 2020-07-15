@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Report Issue</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <app-loading *ngIf="busy"></app-loading>
+
+  <div class="center" *ngIf="!busy">
+  <!-- <div class="camera"></div> -->
+
+  <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)" class="filebtn" #filebutton/>
+  
+  <ion-button shape="round" color="primary" (click)="uploadFile()" *ngIf="!imageURL" fill="outline">Report Issue</ion-button>
+
+  <ion-card *ngIf="imageURL">
+      <img src="https://ucarecdn.com/{{ imageURL }}/" />
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Issue type</ion-label>
+          <ion-select placeholder="Select One" [(ngModel)]="type">
+            <ion-select-option value="e">Electrical</ion-select-option>
+            <ion-select-option value="r">Roadwork</ion-select-option>
+            <ion-select-option value="p">Piping</ion-select-option>
+            <ion-select-option value="l">Landscape</ion-select-option>
+            <ion-select-option value="b">Building</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-textarea placeholder="Enter description" [(ngModel)]="desc"></ion-textarea>
+
+        <ion-button (click)="getLoc()" expand="block">Get Location</ion-button>
+        <ion-textarea placeholder="latitude" value="{{lat}}" [(ngModel)]="latitude"></ion-textarea>
+        <ion-textarea placeholder="longitude" value= "{{lng}}" [(ngModel)]="longitude"></ion-textarea>
+        <!-- <ion-item *ngIf="locationTraces">
+          <ion-label class="ion-text-wrap">
+            <ion-label>Time: {{location.timestamp | date:'M/d/yy, h:mm a'}}</ion-label>
+            <ion-label>Latitude: {{location.latitude}} Longitude: {{location.longitude}}</ion-label>
+            <ion-label>Accuracy: {{location.accuracy}}</ion-label>
+          </ion-label>
+        </ion-item>
+
+        <ng-container *ngIf="!locationWatchStarted;">
+          <ion-button color="primary" (click)="getCoordinates()">Get Location</ion-button>
+        </ng-container> -->
+
+        <ion-button shape="round" color="primary" (click)="createPost()">POST</ion-button>
+      </ion-card-content>
+
+  </ion-card>
+
+</div>  
+</ion-content>
