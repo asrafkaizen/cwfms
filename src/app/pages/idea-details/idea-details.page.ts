@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IdeaService, Idea } from 'src/app/services/idea.service';
+import { UserService } from '../../user.service';
 import { ToastController } from '@ionic/angular';
 import { Http } from '@angular/http';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+
  
 @Component({
   selector: 'app-idea-details',
@@ -18,13 +20,16 @@ export class IdeaDetailsPage implements OnInit {
   lng:any=''
   latitude:any=''
   longitude:any=''
+  author:string=''
+  owner: boolean = false
  
   idea: Idea = {
     name: '',
     type: '',
     img: '',
     lat: '',
-    lng: ''
+    lng: '',
+    author: ''
   };
 
   @ViewChild('filebutton', {static:false}) filebutton
@@ -32,21 +37,36 @@ export class IdeaDetailsPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private ideaService: IdeaService,
     private toastCtrl: ToastController, private router: Router,
     public http: Http,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    public user: UserService
     ) { }
  
   ngOnInit() { }
  
   ionViewWillEnter() {
+    const authed: Promise<boolean> = this.user.isAuthenticated();
+    alert(authed)
+    if ( authed ){
+      this.author = this.user.getUsername();
+      alert ("user defined");
+    }else{
+      alert ("user undefined");
+    }
+    
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.ideaService.getIdea(id).subscribe(idea => {
         this.idea = idea;
       });
+      if (this.idea.author == this.author){
+        // alert ("owner post");
+        this.owner = true;
+      }
     }
   };
  
   addIdea() {
+    this.idea.author = this.author
     this.idea.img = this.imageURL
     this.idea.lat = this.latitude
     this.idea.lng = this.longitude
@@ -70,8 +90,10 @@ export class IdeaDetailsPage implements OnInit {
   };
  
   updateIdea() {
-    this.idea.lat = this.latitude
-    this.idea.lng = this.longitude
+    if (this.idea.lat != ""){
+      this.idea.lat = this.latitude
+      this.idea.lng = this.longitude
+    };    
     this.ideaService.updateIdea(this.idea).then(() => {
       this.showToast('Issue updated');
       this.router.navigate(['./list']);
@@ -126,7 +148,6 @@ export class IdeaDetailsPage implements OnInit {
             }).catch((error) => {
             alert('Error getting location - '+JSON.stringify(error))
             });
-          }
-
+          };
 
 };

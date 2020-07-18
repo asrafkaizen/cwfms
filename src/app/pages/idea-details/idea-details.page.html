@@ -38,6 +38,11 @@
       <ion-select-option value="b">Building</ion-select-option>
     </ion-select>
   </ion-item>
+
+  <ion-item>
+    <ion-label>{{ idea.author }}</ion-label>
+  </ion-item>
+
  <div class="center">
   <ion-button (click)="getLoc()">Get Location</ion-button>
  </div>
@@ -55,7 +60,7 @@
   </ion-toolbar>
 </ion-footer>
  
-<ion-footer *ngIf="idea.id">
+<ion-footer *ngIf="owner">
   <ion-row no-padding text-center>
     <ion-col size="6">
       <ion-button expand="block" fill="outline" color="danger" (click)="deleteIdea()">
