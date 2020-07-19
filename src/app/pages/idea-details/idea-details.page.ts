@@ -22,6 +22,8 @@ export class IdeaDetailsPage implements OnInit {
   longitude:any=''
   author:string=''
   owner: boolean = false
+  admin: boolean = false
+  stat: string
  
   idea: Idea = {
     name: '',
@@ -29,7 +31,8 @@ export class IdeaDetailsPage implements OnInit {
     img: '',
     lat: '',
     lng: '',
-    author: ''
+    author: '',
+    stat: '',
   };
 
   @ViewChild('filebutton', {static:false}) filebutton
@@ -41,35 +44,47 @@ export class IdeaDetailsPage implements OnInit {
     public user: UserService
     ) { }
  
-  ngOnInit() { }
+  ngOnInit() { 
+    
+  }
  
   ionViewWillEnter() {
-    const authed: Promise<boolean> = this.user.isAuthenticated();
-    alert(authed)
-    if ( authed ){
+    // const authed: Promise<boolean> = this.user.isAuthenticated();
+    // alert(authed)
+    // if ( authed ){
       this.author = this.user.getUsername();
-      alert ("user defined");
-    }else{
-      alert ("user undefined");
-    }
+    //   alert ("user defined");
+    // }else{
+    //   alert ("user undefined");
+    // }
     
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.ideaService.getIdea(id).subscribe(idea => {
         this.idea = idea;
       });
-      if (this.idea.author == this.author){
-        // alert ("owner post");
-        this.owner = true;
-      }
     }
   };
+
+  ionViewDidEnter(){
+    if ( this.author.includes("@mbmb.com")){
+      this.admin = true;
+      this.owner = true;
+    }else if (this.author === this.idea.author){
+      this.owner = true;
+    }
+    if (this.idea.lat){
+      this.lat = this.idea.lat;
+      this.lng = this.idea.lng;
+    }
+  }
  
   addIdea() {
     this.idea.author = this.author
     this.idea.img = this.imageURL
     this.idea.lat = this.latitude
     this.idea.lng = this.longitude
+    this.idea.stat = "in-progress";
     this.ideaService.addIdea(this.idea).then(() => {
       this.router.navigateByUrl('/idea');
       this.showToast('Issue reported');
@@ -90,10 +105,10 @@ export class IdeaDetailsPage implements OnInit {
   };
  
   updateIdea() {
-    if (this.idea.lat != ""){
+    if (this.longitude != ""){
       this.idea.lat = this.latitude
       this.idea.lng = this.longitude
-    };    
+    }; 
     this.ideaService.updateIdea(this.idea).then(() => {
       this.showToast('Issue updated');
       this.router.navigate(['./list']);

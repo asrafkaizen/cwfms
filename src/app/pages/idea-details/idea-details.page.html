@@ -39,8 +39,16 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
-    <ion-label>{{ idea.author }}</ion-label>
+  <ion-item *ngIf="idea.author">
+    <ion-label>Author: {{ idea.author }}</ion-label>
+  </ion-item>
+
+  <ion-item *ngIf="admin">
+    <ion-label>Status</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="idea.stat">
+      <ion-select-option value="in-progress">In-Progress</ion-select-option>
+      <ion-select-option value="completed">Completed</ion-select-option>
+    </ion-select>
   </ion-item>
 
  <div class="center">
