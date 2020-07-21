@@ -49,15 +49,7 @@ export class IdeaDetailsPage implements OnInit {
   }
  
   ionViewWillEnter() {
-    // const authed: Promise<boolean> = this.user.isAuthenticated();
-    // alert(authed)
-    // if ( authed ){
-      this.author = this.user.getUsername();
-    //   alert ("user defined");
-    // }else{
-    //   alert ("user undefined");
-    // }
-    
+    this.author = this.user.getUsername();    
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.ideaService.getIdea(id).subscribe(idea => {
