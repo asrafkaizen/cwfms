@@ -56,6 +56,9 @@
  </div>
  <ion-textarea placeholder="{{ idea.lat }}" value="{{lat}}" [(ngModel)]="latitude"></ion-textarea>
   <ion-textarea placeholder="{{ idea.lng }}" value= "{{lng}}" [(ngModel)]="longitude"></ion-textarea>
+  <div class="center">
+    <ion-button *ngIf="idea.lat" href="https://maps.google.com/?q={{idea.lat}},{{idea.lng}}">Go to map</ion-button>
+  </div>
   
 </ion-content>
  
